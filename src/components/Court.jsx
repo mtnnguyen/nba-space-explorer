@@ -1,4 +1,4 @@
-export default function Court({ width = 700, height = 470 }) {
+export default function Court({ width = 700, height = 470, children }) {
   return (
     <svg
       width={width}
@@ -41,6 +41,9 @@ export default function Court({ width = 700, height = 470 }) {
         fill="none"
         stroke="black"
       />
+
+      {/* overlay layer*/}
+      {children}
     </svg>
   );
 }
