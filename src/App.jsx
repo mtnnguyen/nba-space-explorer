@@ -16,16 +16,17 @@ export default function App() {
       <h1>NBA Space Explorer 🏀</h1>
       <p>Interactive court maps coming soon...</p>
     
-    <Controls
+      <Controls
         showMade={showMade}
         setShowMade={setShowMade}
         showMissed={showMissed}
         setShowMissed={setShowMissed}
       />
-    
-    <Court>
-      <ShotChart shots={filteredShots} />
-    </Court>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Court>
+          <ShotChart shots={filteredShots} />
+        </Court>
+      </div>
     </div>
   );
 }
