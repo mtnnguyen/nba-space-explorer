@@ -1,0 +1,12 @@
+[
+  {
+    "id": "0",
+    "player": "Stephen Curry",
+    "team": "GSW",
+    "season": "2023-24",
+    "x": -12.4,
+    "y": 22.8,
+    "made": true,
+    "shotType": "3PT"
+  }
+]
