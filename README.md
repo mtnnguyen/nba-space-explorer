@@ -12,7 +12,7 @@ Interactive spatial analytics web app exploring NBA shot quality, spacing, and p
 - React
 - Vite
 - SVG for court rendering
-- (later: D3 or canvas for shots)
+- Hoping to use ArcGIS for shots soon!
 
 ## How to run locally
 npm install
