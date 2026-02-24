@@ -12,11 +12,11 @@ export default function App() {
   const [showMade, setShowMade] = useState(true);
   const [showMissed, setShowMissed] = useState(true);
 
-  // Start with your JS sample so the app always works (offline / no fetch issues)
+  const [selectedPlayer, setSelectedPlayer] = useState("All");
+
   const [shots, setShots] = useState(() => normalizeShots(sampleShots));
   const [dataStatus, setDataStatus] = useState("Using JS sample");
 
-  // Try loading public JSON; if it fails, keep JS sample
   useEffect(() => {
     (async () => {
       try {
@@ -31,9 +31,20 @@ export default function App() {
     })();
   }, []);
 
+  const players = useMemo(() => {
+    const unique = Array.from(new Set(shots.map((s) => s.player).filter(Boolean)));
+    unique.sort();
+    return ["All", ...unique];
+  }, [shots]);
+
   const filteredShots = useMemo(() => {
-    return shots.filter((s) => (s.made ? showMade : showMissed));
-  }, [shots, showMade, showMissed]);
+    return shots.filter((s) => {
+      if (s.made && !showMade) return false;
+      if (!s.made && !showMissed) return false;
+      if (selectedPlayer !== "All" && s.player !== selectedPlayer) return false;
+      return true;
+    });
+  }, [shots, showMade, showMissed, selectedPlayer]);
 
   return (
     <div style={{ padding: 16, fontFamily: "system-ui, Arial" }}>
@@ -41,7 +52,7 @@ export default function App() {
       <p>Interactive court maps coming soon...</p>
 
       <small style={{ opacity: 0.7, display: "block", marginBottom: 8 }}>
-        {dataStatus}
+        {dataStatus} • Showing {filteredShots.length} / {shots.length}
       </small>
 
       <Controls
@@ -49,6 +60,9 @@ export default function App() {
         setShowMade={setShowMade}
         showMissed={showMissed}
         setShowMissed={setShowMissed}
+        players={players}
+        selectedPlayer={selectedPlayer}
+        setSelectedPlayer={setSelectedPlayer}
       />
 
       <div style={{ display: "flex", justifyContent: "center" }}>
