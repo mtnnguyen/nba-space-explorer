@@ -8,18 +8,18 @@ Instead of just looking at box scores, I wanted to visualize where scoring happe
 - Renders an interactive NBA half-court using SVG
 - Plots shot locations with make/miss visualization
 - Supports player and team filtering
-- Lays the foundation for spatial aggregation (heatmaps / binning)
+- Lays the foundation for spatial aggregation (heatmaps/binning)
 - Exploring how spacing affects shot selection
 
 ## Tech Stack
 - React (UI + state management)
 - Vite (build tool)
 - SVG (court rendering + coordinate control)
-- Planned: spatial binning, shot-quality modeling, optional ArcGIS integration
+- Planned: spatial binning, shot-quality modelling, optional ArcGIS integration
 
 ## Next Steps
 - Implement grid / hexbin spatial aggregation
-- Add expected FG (xFG) modeling
+- Add expected FG (xFG) modelling
 - Build heatmap layers
 - Improve UI + add tooltips and legends
 
