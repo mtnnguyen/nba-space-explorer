@@ -1,36 +1,5 @@
-function toNumber(v) {
-  const n = Number(v);
-  return Number.isFinite(n) ? n : 0;
-}
+function coordinate(v){if(typeof v!=="number"&&typeof v!=="string")return NaN;if(typeof v==="string"&&!v.trim())return NaN;return Number(v);}
 
-function toMade(v) {
-  // Accept booleans
-  if (typeof v === "boolean") return v;
+function outcome(v){if(v===true||v===1)return true;if(v===false||v===0)return false;if(typeof v==="string"){const s=v.trim().toLowerCase();if(["1","true","made","yes"].includes(s))return true;if(["0","false","miss","missed","no"].includes(s))return false;}return null;}
 
-  // Accept numbers (0/1)
-  if (typeof v === "number") return v === 1;
-
-  // Accept strings like "1", "0", "true", "false"
-  if (typeof v === "string") {
-    const s = v.trim().toLowerCase();
-    if (s === "1" || s === "true" || s === "made" || s === "yes") return true;
-    if (s === "0" || s === "false" || s === "miss" || s === "missed" || s === "no")
-      return false;
-  }
-
-  // Fallback
-  return false;
-}
-
-export function normalizeShots(shots) {
-  return shots.map((s, i) => ({
-    id: s.id ?? String(i),
-    player: s.player ?? s.player_name ?? s.playerName ?? "Unknown",
-    team: s.team ?? s.team_abbr ?? s.teamAbbr ?? "UNK",
-    season: s.season ?? s.season_year ?? s.seasonYear ?? "Unknown",
-    x: toNumber(s.x ?? s.loc_x ?? s.shot_x),
-    y: toNumber(s.y ?? s.loc_y ?? s.shot_y),
-    made: toMade(s.made ?? s.shot_made_flag ?? s.fg_made),
-    shotType: s.shotType ?? s.shot_type ?? s.shotTypeBasic ?? "2PT",
-  }));
-}
+export function normalizeShots(shots){if(!Array.isArray(shots))throw new TypeError("Expected an array of shots");return shots.flatMap((s,i)=>{if(!s||typeof s!=="object")return [];const x=coordinate(s.x??s.loc_x??s.shot_x),y=coordinate(s.y??s.loc_y??s.shot_y),made=outcome(s.made??s.shot_made_flag??s.fg_made);if(!Number.isFinite(x)||!Number.isFinite(y)||x< -25||x>25||y< -6||y>41||made===null)return [];return [{id:s.id??String(i),player:s.player??s.player_name??s.playerName??"Unknown",team:s.team??s.team_abbr??s.teamAbbr??"UNK",season:s.season??s.season_year??s.seasonYear??"Unknown",x,y,made,shotType:s.shotType??s.shot_type??s.shotTypeBasic??"Unknown"}];});}

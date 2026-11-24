@@ -23,7 +23,7 @@ export default function App() {
         const raw = await loadShotsFromPublic("/data/shots_sample.json");
         const normalized = normalizeShots(raw);
         setShots(normalized);
-        setDataStatus(`Loaded ${normalized.length} shots from /public/data`);
+        setDataStatus(`Loaded ${normalized.length} synthetic shots; ${raw.length - normalized.length} rejected`);
       } catch (err) {
         console.warn("Falling back to JS sampleShots:", err);
         setDataStatus("Using JS sample (public data failed to load)");
@@ -49,7 +49,7 @@ export default function App() {
   return (
     <div style={{ padding: 16, fontFamily: "system-ui, Arial" }}>
       <h1>NBA Space Explorer 🏀</h1>
-      <p>Interactive court maps coming soon...</p>
+      <p>Synthetic shot locations for exploring court geometry — not actual NBA performance data.</p>
 
       <small style={{ opacity: 0.7, display: "block", marginBottom: 8 }}>
         {dataStatus} • Showing {filteredShots.length} / {shots.length}
