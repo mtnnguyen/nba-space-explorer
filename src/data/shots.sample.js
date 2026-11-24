@@ -1,7 +1,8 @@
+// Synthetic fallback, in feet relative to the hoop.
 export const sampleShots = [
-  { x: 250, y: 80, made: true },
-  { x: 200, y: 130, made: false },
-  { x: 310, y: 160, made: true },
-  { x: 70, y: 120, made: false },
-  { x: 430, y: 120, made: true },
+  { x: 0, y: 2, made: true },
+  { x: -5, y: 7, made: false },
+  { x: 6, y: 10, made: true },
+  { x: -18, y: 6, made: false },
+  { x: 18, y: 6, made: true },
 ];
